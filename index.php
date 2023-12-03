@@ -45,7 +45,7 @@ $translations = [
 ];
 
 // Detect browser language
-$browserLang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+$browserLang = substr(htmlspecialchars($_SERVER['HTTP_ACCEPT_LANGUAGE']), 0, 2);
 $currentLang = array_key_exists($browserLang, $translations) ? $browserLang : 'en';
 
 // Custom translation function
@@ -471,7 +471,7 @@ function createInfoPage($config, $browserLang){
 
 		</html>';
         $basepath = dirname(__DIR__, 1);
-        $filepath = $basepath .'/'. $config['redirect_page'];
+        $filepath = $basepath .'/'. basename($config['redirect_page']);
         $writelocation = realpath($filepath);
         if (strpos($writelocation, $basepath) === 0) {
             file_put_contents($writelocation, $page);
@@ -1007,11 +1007,13 @@ function getHTML($browserLang) {
 
 // Display login form 
 echo getHTML($browserLang);
+$mainColor = $config['main_color'];
+$backColor = $config['background_color']
 ?>
 
 <title><?= __('Login form'); ?></title>
     <style>
-        <?= getCSS($config['main_color'], $config['background_color']); ?>
+        <?= getCSS($mainColor, $backColor); ?>
     </style>
   </head>
   <body>
