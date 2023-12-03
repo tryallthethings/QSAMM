@@ -91,7 +91,7 @@ if (!file_exists(__DIR__ . '/.htaccess')) {
 
 if (!file_exists(dirname(__DIR__, 1) . '/' . $config['redirect_page'] ) || $updateConfig) {
 	_log("Info page does not or configuration was updated. Creating it (again)", true);
-    createInfoPage($config);
+    createInfoPage($config, $browserLang);
 }
 
 // Run cleanup every time the script is called
@@ -276,7 +276,7 @@ function showAdminForm($browserLang, $config = null) {
 
   $form = getHTML($browserLang) . '
       <style>
-      ' . getCSS($config) . '
+      ' . getCSS($config['main_color'], $config['background_color']) . '
       </style>
       <script>
       // Reveal passwords 
@@ -409,7 +409,7 @@ function showAdminForm($browserLang, $config = null) {
 }
 
 // Create the info page for visitors based on the configuration
-function createInfoPage($config){
+function createInfoPage($config, $browserLang){
   if ($config['google_font'] != __('Browser default (GPDR safe)')) {
     $googlefont = '@import url("https://fonts.googleapis.com/css2?family=' . $config['google_font'] . '");
     * {
@@ -431,7 +431,7 @@ function createInfoPage($config){
 		<meta name="theme-color" content="#ffffff">
 
 		<style>
-      ' .getCSS($config) .  $googlefont . '
+      ' .getCSS($config['main_color'], $config['background_color']) .  $googlefont . '
 		  .page-heading { font-size: 50px; font-weight: 700; color: ' . $mainColor . ';}
 		  body { font-size: 18px; color: #333; }
 		  article { display: block; text-align: left; max-width: 120px; margin: 0 auto; }
@@ -470,7 +470,16 @@ function createInfoPage($config){
 			</body>
 
 		</html>';
-		file_put_contents(dirname(__DIR__, 1) . '/' . $config['redirect_page'], $page);
+        $basepath = dirname(__DIR__, 1);
+        $filepath = $basepath .'/'. $config['redirect_page'];
+        $writelocation = realpath($filepath);
+        if (strpos($location, $basepath) === 0) {
+            file_put_contents($writelocation, $page);
+        }
+        else {
+            _log("Invalid path detected. " . $filepath);
+        }
+		
 }
 
 // Function to create a new .htaccess file with default content
@@ -646,10 +655,7 @@ function getDebuglog($count = 1) {
 }
 
 // Define CSS for all pages
-function getCSS($config) {
-    $mainColor = $config['main_color'] ?? '#007bff';
-    $backgroundColor = $config['background_color'] ?? '#007bff';
-    
+function getCSS($mainColor = '#007bff', $backgroundColor = '#007bff') {
     return '
     /* General style for the entire page */
     html, body {
@@ -1005,7 +1011,7 @@ echo getHTML($browserLang);
 
 <title><?= __('Login form'); ?></title>
     <style>
-        <?= getCSS($config); ?>
+        <?= getCSS($config['main_color'], $config['background_color']); ?>
     </style>
   </head>
   <body>
