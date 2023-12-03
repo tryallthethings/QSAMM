@@ -99,6 +99,8 @@ cleanupHtaccess($config);
 
 // Check Login form submitted 
 if(isset($_POST['submit'])){
+    // Sanitize $_POST
+    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
     // Check and assign submitted password to new variable
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -119,7 +121,7 @@ if(isset($_POST['submit'])){
   {
     _log("Correct admin password entered - going into configuration");
     // Show admin form
-    echo showAdminForm(htmlspecialchars($browserLang), $config);
+    echo showAdminForm($browserLang, $config);
     exit();
   } else {
       // Unsuccessful attempt: show error message
