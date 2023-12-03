@@ -473,7 +473,7 @@ function createInfoPage($config, $browserLang){
         $basepath = dirname(__DIR__, 1);
         $filepath = $basepath .'/'. $config['redirect_page'];
         $writelocation = realpath($filepath);
-        if (strpos($location, $basepath) === 0) {
+        if (strpos($writelocation, $basepath) === 0) {
             file_put_contents($writelocation, $page);
         }
         else {
