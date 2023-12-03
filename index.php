@@ -119,7 +119,7 @@ if(isset($_POST['submit'])){
   {
     _log("Correct admin password entered - going into configuration");
     // Show admin form
-    echo showAdminForm($browserLang, $config);
+    echo showAdminForm(htmlspecialchars($browserLang), $config);
     exit();
   } else {
       // Unsuccessful attempt: show error message
