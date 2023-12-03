@@ -1013,7 +1013,7 @@ $backColor = $config['background_color']
 
 <title><?= __('Login form'); ?></title>
     <style>
-        <?= getCSS($mainColor, $backColor); ?>
+        <?= getCSS(htmlspecialchars($mainColor), htmlspecialchars($backColor)); ?>
     </style>
   </head>
   <body>
