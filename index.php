@@ -9,7 +9,7 @@ $config = '';
 
 // Define some constants for QSAMM
 define('QSAMM', TRUE);
-define('VERSION', '1.0');
+define('VERSION', '1.3');
 define('GITHUB', 'https://github.com/tryallthethings/qsamm');
 
 // Define translations
@@ -41,6 +41,7 @@ $translations = [
       'Show' => 'Anzeigen',
       'Staging / Maintenance mode first run configuration' => 'Entwickler / Wartungsseite Erstkonfiguration',
       'Invalid input. Please enter a number followed by MM, W, D, H, M, or S.' => 'Ungültige Eingabe. Bitte eine Nummer gefolgt von MM, W, D, H, M oder S eingeben',
+      'Show debug log' => 'Protokoll anzeigen'
   ],
 ];
 
@@ -90,7 +91,7 @@ if (!file_exists(__DIR__ . '/.htaccess')) {
 }
 
 if (!file_exists(dirname(__DIR__, 1) . '/' . $config['redirect_page'] ) || $updateConfig) {
-	_log("Info page does not or configuration was updated. Creating it (again)", true);
+	_log("Info page does not or config was updated. (Re)creating it.", true);
     createInfoPage($config, $browserLang);
 }
 
@@ -399,7 +400,7 @@ function showAdminForm($browserLang, $config = null) {
   </div>
 </div>
 <details>
-<summary>Show debug log</summary>
+<summary>' . __('Show debug log') . '</summary>
 <div class="form-row debuglog">
 ' . getDebuglog(20) . '
 </div>
@@ -533,7 +534,7 @@ function convertMarkdownToHtml($markdown) {
     $markdown = preg_replace('/\*(.*?)\*/', '<em>$1</em>', $markdown);
 
     // Blockquotes
-    $markdown = preg_replace('/^\>\s*(.*)$/m', '<blockquote>$1</blockquote>', $markdown);
+    $markdown = preg_replace('/^&gt;\s*(.*)$/m', '<blockquote>$1</blockquote>', $markdown);
 
     // Ordered List
     $markdown = preg_replace('/^\d\.\s*(.*)$/m', '<ol><li>$1</li></ol>', $markdown);
@@ -836,24 +837,24 @@ function getCSS($mainColor = '#007bff', $backgroundColor = '#007bff') {
 
     /* Form icon style */
     #icon {
-    width:60%;
+        width:60%;
     }
 
     /* Box sizing for all elements */
     * {
-    box-sizing: border-box;
+        box-sizing: border-box;
     }
 
     /* Style for active form title */
     h2.login-h2 {
-    color: #0d0d0d;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    display: inline-block;
-    margin: 40px 8px 10px 8px;
-    border-bottom: 2px solid #5fbae9;
+        color: #0d0d0d;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: inline-block;
+        margin: 40px 8px 10px 8px;
+        border-bottom: 2px solid #5fbae9;
     }
     
     /* Styles for config page */
@@ -995,6 +996,18 @@ function getCSS($mainColor = '#007bff', $backgroundColor = '#007bff') {
         background-color: #f2f2f2; padding: 10px; border: 1px solid #ccc; font-family: monospace;
     }
 
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 5px;
+    }
+
+    blockquote {
+        margin: 20px 0;
+        padding: 10px 20px;
+        border-left: 5px solid #ccc; /* Adds a left border */
+        background-color: #f9f9f9; /* Light grey background */
+        color: #333; /* Darker text color */
+        font-style: italic; /* Italicize text */
+    }
     ';
 }
 
