@@ -6,11 +6,21 @@ QSAMM is an quick and easy solution for staging / development sites and maintena
 By default, all access to yourdomain.com is blocked (except loading a few image types and accessing the information page / admin page). Once a user authenticates himself through login in with a valid password, the user's IP address is allowed to access the regular website. 
 
 ## Features
-- **Quick and easy installation and configuration**: Upload the file and configure it through a web interface.
-- **Multilingual Support**: Simple translation built-in. By default it includes English and German but you can add any language you want.
-- **User Authentication**: One password to allow access to the protected site and another to access the web interface.
-- **Privacy first**: No external libraries or fonts will be loaded (unless you select a Google font). No cookies will be set.
-- **Full customization**: You can use the script as-is or customize every part of it to your liking.
+- ⏩ **Quick and easy installation and configuration**: Upload the file and configure it through a web interface.
+- 🌍 **Multilingual Support**: Simple translation built-in. By default it includes English and German but you can add any language you want.
+- 🔓 **User Authentication**: One password to allow access to the protected site and another to access the web interface.
+- 😎 **Privacy first**: No external libraries or fonts will be loaded (unless you select a Google font). No cookies will be set.
+- 🎨 **Full customization**: You can use the script as-is or customize every part of it to your liking.
+
+
+### 💻 Desktop version
+![Desktop](media/desktop.png)
+### 📱 Mobile version
+![Mobile](media/mobile.png)
+### Login
+![Desktop](media/desktop.gif)
+### Configuration
+![Desktop](media/configuration.png)
 
 ## Installation
 1. Download the latest version index.php and place it into a subfolder on your webspace. If your website root path is ```/var/www/public_html```, create a subfolder ```login``` and place the index.php into it. You can use any subfolder name you like, it doesn't have to be ```login```.
@@ -26,7 +36,7 @@ By default, all access to yourdomain.com is blocked (except loading a few image 
 ## Usage
 Once configured, every visitor will be shown the information page. You can then provide your customers the configured user password. They can then click the Login button at the bottom of the information page, enter any username (this is mainly for you to see who used the system) and the user password. After that, they will be redirected to the regular website.
 
-## Note
+## 🛑 Note
 Every time you save the configuration on the admin page, the redirect page will be overwritten. Keep this in mind in case you did customize it further. The redirect page filename can't be changed via the web interface after the initial setup. You can change it in your .htaccess and the config.php if you really need to.
 
 ## Supported markdown
@@ -70,7 +80,7 @@ Newlines -> converted to <br>
 
 ```
 
-## Localization
+## 🌍 Localization
 To modify the translation or add your own you need to edit the index.php. Look for this code block.
 
 ```PHP
