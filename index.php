@@ -243,14 +243,14 @@ function writeConfig() {
 		'user_password' => htmlspecialchars($_POST['user_password']),
 		'timeout' => htmlspecialchars($_POST['timeout']),
 		'enable_logging' => isset($_POST['enable_logging']) ? true : false,
-		'redirect_page' => $_POST['redirect_page'],
-		'logo_path' => $_POST['logo_path'],
-		'page_title' => $_POST['page_title'],
-		'page_heading' => $_POST['page_heading'],
-		'page_text' => $_POST['page_text'],
-		'google_font' => $_POST['google_font'],
-		'main_color' => $_POST['main_color'],
-        'background_color' => $_POST['background_color']
+		'redirect_page' => htmlspecialchars($_POST['redirect_page']),
+		'logo_path' => htmlspecialchars($_POST['logo_path']),
+		'page_title' => htmlspecialchars($_POST['page_title']),
+		'page_heading' => htmlspecialchars($_POST['page_heading']),
+		'page_text' => htmlspecialchars($_POST['page_text']),
+		'google_font' => htmlspecialchars($_POST['google_font']),
+		'main_color' => htmlspecialchars($_POST['main_color']),
+        'background_color' => htmlspecialchars($_POST['background_color'])
 	];
 	file_put_contents(__DIR__ . '/config.php', '<?php 
     ' . $sec . '
