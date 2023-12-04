@@ -99,8 +99,6 @@ cleanupHtaccess($config);
 
 // Check Login form submitted 
 if(isset($_POST['submit'])){
-    // Sanitize $_POST
-    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
     // Check and assign submitted password to new variable
     $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -241,9 +239,9 @@ function writeConfig() {
      }";
     _log("Writing config", true);
 	$config = [
-		'admin_password' => $_POST['admin_password'],
-		'user_password' => $_POST['user_password'],
-		'timeout' => $_POST['timeout'],
+		'admin_password' => htmlspecialchars($_POST['admin_password']),
+		'user_password' => htmlspecialchars($_POST['user_password']),
+		'timeout' => htmlspecialchars($_POST['timeout']),
 		'enable_logging' => isset($_POST['enable_logging']) ? true : false,
 		'redirect_page' => $_POST['redirect_page'],
 		'logo_path' => $_POST['logo_path'],
@@ -271,6 +269,7 @@ function writeConfig() {
 }
 
 function showAdminForm($browserLang, $config = null) {
+
   $googleFonts = [
       __('Browser default (GPDR safe)'), 'Open Sans', 'Roboto', 'Lato', 'Slabo', 'Oswald', 
       'Source Sans Pro', 'Montserrat', 'Raleway', 'PT Sans', 'Roboto Condensed'
@@ -641,14 +640,14 @@ function getDebuglog($count = 1) {
         $lastlines = array_slice($lines, -$count);
 
         $return .= '<h2>Last ' . $count . ' entries in debug.log</h2></div><div class="form-row">';
-        $return .= '<div style="background-color: #f2f2f2; padding: 10px; border: 1px solid #ccc; font-family: monospace;">';
+        $return .= '<code>';
 
         // Loop through the last 20 lines and output them
         foreach ($lastlines as $line) {
             $return .= htmlspecialchars($line) . '<br>';
         }
 
-        $return .= '</div>';
+        $return .= '</code>';
     } else {
         $return .= '<p>Log file not found.</p>';
     }
@@ -990,6 +989,10 @@ function getCSS($mainColor = '#007bff', $backgroundColor = '#007bff') {
     /* Change mouse icon for debug log on admin page */
     details summary  {
         cursor: pointer;
+    }
+
+    code {
+        background-color: #f2f2f2; padding: 10px; border: 1px solid #ccc; font-family: monospace;
     }
 
     ';
